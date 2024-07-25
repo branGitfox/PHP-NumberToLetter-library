@@ -1,7 +1,7 @@
 <?php 
 
 /**
- * Cette classe permet de convertir un nonbre en lettre (Francais pour le moment)
+ * Cette classe permet de convertir un nombre en lettre (Francais pour le moment)
  * @author BranGitFox 
  * @var number input 
  * @return String
@@ -15,7 +15,8 @@ class NumberInLetter {
             4=>'quatre',
             5=>'cinq',
             6=>'six',
-            8=>'sept',
+            7=>'sept',
+            8=>'huit',
             9=>'neuf',
             10=>'dix',
             11=>'onze',
@@ -53,6 +54,8 @@ class NumberInLetter {
             9=>'dix-neuf',
         ];
 
+        
+
         private $centaine = 'cent';
         private $millaine = 'mille';
         private $million = 'million';
@@ -72,40 +75,81 @@ class NumberInLetter {
                 return $this->Pre[$this->number];
             }elseif($this->number >= 10 && $this->number < 20){
 
-                return $this->Pre[$this->number];
+                    return $this->Pre[$this->number];
 
             }elseif($this->number >= 20 && $this->number < 100){
-
-               if($this->number % 10 == 0){
-                    return $this->dizaine[$this->number];
-               }else{
-                   $diz =  $this->number - ($this->number % 10);
-                   $idt = $this->dizaine[$diz];
-                   $reste = $this->number % 10;
-                   if(in_array($this->number, $this->exception)){
-                    $diz =  $this->number - ($this->number % 10);
-                    $idt = explode('-',$this->dizaine[$diz]);
-                    $end = $idt[0];     
-                    $reste = $this->number % 10;
-                     return $end.' et '. $this->exceptionLettres[$reste];
-                   }
-                   return $idt.' et '. $this->Pre[$reste];
-               }
-
-
+               return $this->dizaine();
             }elseif($this->number >= 100 && $this->number < 1000){
 
                 if($this->number % 100 == 0){
-                    $cent = $this->number - ($this->number % 100);
-                    $prefix = $this->Pre[($cent / 100)];
+                    $prefix = $this->Pre[($this->number / 100)];
                     return  ($prefix=='un' ? ' ': $prefix) .' '.$this->centaine;
-
                 }else{
 
-                    $cent = $this->number - ($this->number % 100);
-                    $prefix = $this->Pre[($cent / 100)]; 
-                    return($prefix=='un' ? ' ': $prefix).' '.$this->centaine.' '.$this->Pre[($this->number % 100)];
+             
+                    $prefix = $this->Pre[($this->number / 100)]; 
+                    // $diz = ($this->number % 100) -(($this->number % 100) % 10);
+
+                    $diz = $this->number % 100;
+                    if(in_array($diz, $this->exception)){
+                        $pair =$diz-($diz % 10);
+                        $reste= $diz % 10;
+                        $explode_pair = explode('-', $this->dizaine[$pair]);
+                        $first = $explode_pair[0];
+                        return (
+                            ($prefix == 'un'?' ':$prefix).' '.$this->centaine.' '.$first.' '.$this->exceptionLettres[$reste]
+                        );
+                    }
+                    
+                    // return(
+                    //     $prefix=='un' ?
+                    //      ' ': $prefix)
+                    //      .' '.$this->centaine.' '.$this->dizaine[$diz].
+                    //      (in_array($this->number, $this->Pre)?
+                    //      $this->Pre[($this->number % 100)]
+                    //      :'')
+                    //      .(in_array(100 - ($this->number % 100), $this->exceptionLettres)?
+                    //      $this->exceptionLettres[( 100 - ($this->number % 100))]
+                    //      :''
+                    // );
                 }
            }
     }
+
+/**
+ * function qui va gerer les nombres de zero à 99
+ * @param void 
+ * @return String
+ */
+    private function dizaine()
+    {
+        if($this->number % 10 == 0){
+            return $this->dizaine[$this->number];
+       }else{
+           $diz =  $this->number - ($this->number % 10);
+           $idt = $this->dizaine[$diz];
+           $reste = $this->number % 10;
+           if(in_array($this->number, $this->exception)){
+            $diz =  $this->number - ($this->number % 10);
+            $idt = explode('-',$this->dizaine[$diz]);
+            $end = $idt[0];     
+            $reste = $this->number % 10;
+             return $end.' et '. $this->exceptionLettres[$reste];
+           }
+           return $idt.' et '. $this->Pre[$reste];
+       }
+    }
+
+    /**
+ * function qui va gerer les nombres de cent à 999
+ * @param void 
+ * @return String
+ */
+    private function centaine() 
+    {
+
+    }
 }
+
+
+
