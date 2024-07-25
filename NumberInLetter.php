@@ -88,6 +88,8 @@ class NumberInLetter {
 
              
                     $prefix = $this->Pre[($this->number / 100)]; 
+                    $pair = ($this->number % 100) -(( $this->number % 100)% 10);
+                    $reste = ( $this->number % 100)% 10;
                     // $diz = ($this->number % 100) -(($this->number % 100) % 10);
 
                     $diz = $this->number % 100;
@@ -99,6 +101,8 @@ class NumberInLetter {
                         return (
                             ($prefix == 'un'?' ':$prefix).' '.$this->centaine.' '.$first.' '.$this->exceptionLettres[$reste]
                         );
+                    }else{
+                        return ($prefix == 'un'?' ':$prefix).' '.$this->centaine.' '.$this->dizaine[$pair].' et '.$this->Pre[$reste];
                     }
                     
                     // return(
