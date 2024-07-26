@@ -83,7 +83,60 @@ class NumberInLetter {
                 if($this->number % 1000 == 0){
                     $prefix =$this->Pre[$this->number / 1000];
                     return ($prefix == 'un'?'':$prefix).$this->millaine;
+                }else{
+                    $prefix =$this->Pre[$this->number / 1000];
+                    $prefix_dizaine='';
+                    $prefix_centaine='';
+                    if($this->number % 100 == 0){    
+                        $prefix_centaine .= $this->Pre[$this->number % 1000 / 100];
+                    }else{
+                        if($this->Pre[($this->number % 1000)/100] !== 'zero'){
+                            $prefix_centaine .=$this->Pre[($this->number % 1000)/100];
+                        }else{
+
+                            $this->centaine = '';
+                        }
+
+                        if((($this->number %1000) % 100)%10 == 0){
+                             $prefix_dizaine .= $this->dizaine[(($this->number %1000) % 100)];
+                        }else{
+                            if(in_array((($this->number %1000) % 100), $this->exception)){
+                                $pair =$this->dizaine[($this->number%1000%100) - $this->number %1000 % 100 %10];
+                                $first = explode('-', $pair)[0];
+                                $end = $this->exceptionLettres[$this->number %1000 % 100 %10];
+                                $prefix_dizaine .= $first.' '.$end;
+                            }else{
+                                if(in_array($this->number % 1000% 100, $this->Pre)){
+                                    $prefix_dizaine .= $this->Pre[$this->number % 1000% 100];
+                                }else{
+                                if(($this->number%1000%100) - ($this->number %1000 % 100 %10)!== 0 ){
+                                   if(($this->number%1000%100) - ($this->number %1000 % 100 %10) > 19){
+                                    $pair =$this->dizaine[($this->number%1000%100) - ($this->number %1000 % 100 %10)];
+                                    $reste = $this->number %1000 % 100 %10;
+                                    $prefix_dizaine .= $pair.' et ' . $this->Pre[$reste];
+                                   }else{
+                                    $pair =$this->Pre[($this->number%1000%100) - ($this->number %1000 % 100 %10)];
+                                    $reste = $this->number %1000 % 100 %10;
+                                    $prefix_dizaine .= $pair.' et ' . $this->Pre[$reste];
+                                   }
+                                  
+                                }else{
+                                    $reste = $this->number %1000 % 100 %10;
+                                    $prefix_dizaine .=$this->Pre[$reste];
+
+                                }
+                                }
+                           
+                                
+                              
+                            }
+                        }
+                        return ($prefix == 'un'?'':$prefix).' '.$this->millaine. ' '.($prefix_centaine ==' un'?' ':$prefix_centaine).' ' .$this->centaine.' '.$prefix_dizaine;
+                    }
+
+
                 }
+
            }
     }
 
