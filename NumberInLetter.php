@@ -74,48 +74,15 @@ class NumberInLetter {
             if($this->number < 10){
                 return $this->Pre[$this->number];
             }elseif($this->number >= 10 && $this->number < 20){
-
                     return $this->Pre[$this->number];
-
             }elseif($this->number >= 20 && $this->number < 100){
                return $this->dizaine();
             }elseif($this->number >= 100 && $this->number < 1000){
-
-                if($this->number % 100 == 0){
-                    $prefix = $this->Pre[($this->number / 100)];
-                    return  ($prefix=='un' ? ' ': $prefix) .' '.$this->centaine;
-                }else{
-
-             
-                    $prefix = $this->Pre[($this->number / 100)]; 
-                    $pair = ($this->number % 100) -(( $this->number % 100)% 10);
-                    $reste = ( $this->number % 100)% 10;
-                    // $diz = ($this->number % 100) -(($this->number % 100) % 10);
-
-                    $diz = $this->number % 100;
-                    if(in_array($diz, $this->exception)){
-                        $pair =$diz-($diz % 10);
-                        $reste= $diz % 10;
-                        $explode_pair = explode('-', $this->dizaine[$pair]);
-                        $first = $explode_pair[0];
-                        return (
-                            ($prefix == 'un'?' ':$prefix).' '.$this->centaine.' '.$first.' '.$this->exceptionLettres[$reste]
-                        );
-                    }else{
-                        return ($prefix == 'un'?' ':$prefix).' '.$this->centaine.' '.$this->dizaine[$pair].' et '.$this->Pre[$reste];
-                    }
-                    
-                    // return(
-                    //     $prefix=='un' ?
-                    //      ' ': $prefix)
-                    //      .' '.$this->centaine.' '.$this->dizaine[$diz].
-                    //      (in_array($this->number, $this->Pre)?
-                    //      $this->Pre[($this->number % 100)]
-                    //      :'')
-                    //      .(in_array(100 - ($this->number % 100), $this->exceptionLettres)?
-                    //      $this->exceptionLettres[( 100 - ($this->number % 100))]
-                    //      :''
-                    // );
+                return $this->centaine();              
+           }elseif($this->number >= 1000 && $this->number < 1000000){
+                if($this->number % 1000 == 0){
+                    $prefix =$this->Pre[$this->number / 1000];
+                    return ($prefix == 'un'?'':$prefix).$this->millaine;
                 }
            }
     }
@@ -150,6 +117,39 @@ class NumberInLetter {
  * @return String
  */
     private function centaine() 
+    {
+        if($this->number % 100 == 0){
+            $prefix = $this->Pre[($this->number / 100)];
+            return  ($prefix=='un' ? ' ': $prefix) .' '.$this->centaine;
+        }else{
+
+     
+            $prefix = $this->Pre[($this->number / 100)]; 
+            $pair = ($this->number % 100) -(( $this->number % 100)% 10);
+            $reste = ( $this->number % 100)% 10;
+            // $diz = ($this->number % 100) -(($this->number % 100) % 10);
+
+            $diz = $this->number % 100;
+            if(in_array($diz, $this->exception)){
+                $pair =$diz-($diz % 10);
+                $reste= $diz % 10;
+                $explode_pair = explode('-', $this->dizaine[$pair]);
+                $first = $explode_pair[0];
+                return (
+                    ($prefix == 'un'?' ':$prefix).' '.$this->centaine.' '.$first.' '.$this->exceptionLettres[$reste]
+                );
+            }else{
+                return ($prefix == 'un'?' ':$prefix).' '.$this->centaine.' '.$this->dizaine[$pair].' et '.$this->Pre[$reste];
+            }
+        }
+    }
+
+    /**
+     * @param void
+     * @return String
+     */
+
+    private function millieme()
     {
 
     }

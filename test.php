@@ -2,5 +2,5 @@
 
 require './NumberInLetter.php';
 
-$number = new NumberInLetter(925);
+$number = new NumberInLetter(1000);
 echo $number->numberToLetter();
