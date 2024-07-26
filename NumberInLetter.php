@@ -7,7 +7,7 @@
  * @return String
  */
 class NumberInLetter {
-        private $Pre = [
+        protected $Pre = [
             0=>'zero',
             1=>'un',
             2=>'deux',
@@ -30,7 +30,7 @@ class NumberInLetter {
             19=>'dix-neuf',
         ];
 
-        private $dizaine = [
+        protected $dizaine = [
             20=>'vingt', 
             30=>'trente',
              40=>'quarante', 
@@ -41,7 +41,7 @@ class NumberInLetter {
               90=>'quatre vingt-dix',            
         ];
 
-        private $exceptionLettres = [
+        protected $exceptionLettres = [
             
             1=>'onze',
             2=>'douze',
@@ -54,17 +54,13 @@ class NumberInLetter {
             9=>'dix-neuf',
         ];
 
-       
+        protected $centaine = 'cent';
+        protected $millaine = 'mille';
+        protected $million = 'million';
+        protected $milliard = 'milliard';
+        protected $exception = [71,72,73,74,75,76,77,78,79,91,92,93,94,95,96,97,98,99];
 
-        
-
-        private $centaine = 'cent';
-        private $millaine = 'mille';
-        private $million = 'million';
-        private $milliard = 'milliard';
-        private $exception = [71,72,73,74,75,76,77,78,79,91,92,93,94,95,96,97,98,99];
-
-    private $number;
+  protected $number;
 
     public function __construct(int $number)
     {
@@ -108,12 +104,36 @@ class NumberInLetter {
                                  }
 
                             }elseif($this->number / 1000 >= 100 && $this->number / 1000 < 1000){
-                                return 'centaine';
+                                $pref = $this->number / 1000;
+                                if($pref % 100 == 0){
+                                         $prefix .= ($this->Pre[$pref / 100]=='un'?' ':$this->Pre[$pref / 100]).' '.$this->centaine;                                               
+                                }else {
+                                  if($pref % 100 % 10 ==0){
+                                    $dizaine =$pref % 100;
+                                    if($dizaine > 19){
+                                        $prefix .= ($this->Pre[$pref / 100]=='un'?' ':$this->Pre[$pref / 100]).' '.$this->centaine.' '.$this->dizaine[$pref % 100];                                               
+                                    }else{
+                                        $prefix .= ($this->Pre[$pref / 100]=='un'?' ':$this->Pre[$pref / 100]).' '.$this->centaine.' '.$this->Pre[$pref % 100];                                               
+
+                                    }
+
+                                  }
+                                }
+                                // if(!in_array($pref, $this->exception)){
+                                //      $prefix_pair = ($this->number / 1000) - ($this->number / 1000 % 10);
+                                //      $reste = $this->number / 1000 % 10;
+                                //      $prefix .= $this->dizaine[$prefix_pair].' et '.$this->Pre[$reste];
+                                // }else{
+                                //   $prefix_pair = ($this->number / 1000) - ($this->number / 1000 % 10);
+                                //    $first = $this->exceptionLettres[$this->number / 1000 % 10];
+                                //    $reste = $this->number / 1000 % 10;
+                                //    $prefix.=explode('-',$this->dizaine[$prefix_pair])[0].' '. $first;                                      
+                                // }
                             }
                     }else {
                         $prefix .=$this->Pre[$this->number / 1000];
                     }
-                    
+                    // echo $prefix;
                     return ($prefix == 'un'?'':$prefix).' '.$this->millaine;
                 }else{
 
@@ -190,7 +210,7 @@ class NumberInLetter {
  * @param void 
  * @return String
  */
-    private function dizaine():string
+    protected function dizaine():string
     {
         if($this->number % 10 == 0){
             return $this->dizaine[$this->number];
@@ -214,7 +234,7 @@ class NumberInLetter {
  * @param void 
  * @return String
  */
-    private function centaine():string
+    protected function centaine():string
     {
         if($this->number % 100 == 0){
             $prefix = $this->Pre[($this->number / 100)];
@@ -247,11 +267,14 @@ class NumberInLetter {
      * @return String
      */
 
-    private function millieme()
+    protected function millieme()
     {
 
     }
 }
+        
+
+  
 
 
 
