@@ -74,7 +74,7 @@ class NumberInLetter {
      */
 
 
-    public function numberToLetter():string{
+    public function numberToLetter(){
             if($this->number < 10){
                 return $this->Pre[$this->number];
             }elseif($this->number >= 10 && $this->number < 20){
@@ -84,126 +84,9 @@ class NumberInLetter {
             }elseif($this->number >= 100 && $this->number < 1000){
                 return $this->centaine();              
            }elseif($this->number >= 1000 && $this->number < 1000000){
-
-            //s'il n'y a pas de centaine et dizaine
-                if($this->number % 1000 == 0){
-                    $prefix = '';
-                    if($this->number / 1000 >= 20 && $this->number / 1000 < 1000){      
-                            if($this->number / 1000 < 100){
-                                 $pref = $this->number / 1000;
-
-                                 if(!in_array($pref, $this->exception)){
-                                      $prefix_pair = ($this->number / 1000) - ($this->number / 1000 % 10);
-                                      $reste = $this->number / 1000 % 10;
-                                      $prefix .= $this->dizaine[$prefix_pair].' et '.$this->Pre[$reste];
-                                 }else{
-                                   $prefix_pair = ($this->number / 1000) - ($this->number / 1000 % 10);
-                                    $first = $this->exceptionLettres[$this->number / 1000 % 10];
-                                    $reste = $this->number / 1000 % 10;
-                                    $prefix.=explode('-',$this->dizaine[$prefix_pair])[0].' '. $first;                                      
-                                 }
-
-                            }elseif($this->number / 1000 >= 100 && $this->number / 1000 < 1000){
-                                $pref = $this->number / 1000;
-                                if($pref % 100 == 0){
-                                         $prefix .= ($this->Pre[$pref / 100]=='un'?' ':$this->Pre[$pref / 100]).' '.$this->centaine;                                               
-                                }else {
-                                  if($pref % 100 % 10 ==0){
-                                    $dizaine =$pref % 100;
-                                    if($dizaine > 19){
-                                        $prefix .= ($this->Pre[$pref / 100]=='un'?' ':$this->Pre[$pref / 100]).' '.$this->centaine.' '.$this->dizaine[$pref % 100];                                               
-                                    }else{
-                                        $prefix .= ($this->Pre[$pref / 100]=='un'?' ':$this->Pre[$pref / 100]).' '.$this->centaine.' '.$this->Pre[$pref % 100];                                               
-
-                                    }
-
-                                  }
-                                }
-                                // if(!in_array($pref, $this->exception)){
-                                //      $prefix_pair = ($this->number / 1000) - ($this->number / 1000 % 10);
-                                //      $reste = $this->number / 1000 % 10;
-                                //      $prefix .= $this->dizaine[$prefix_pair].' et '.$this->Pre[$reste];
-                                // }else{
-                                //   $prefix_pair = ($this->number / 1000) - ($this->number / 1000 % 10);
-                                //    $first = $this->exceptionLettres[$this->number / 1000 % 10];
-                                //    $reste = $this->number / 1000 % 10;
-                                //    $prefix.=explode('-',$this->dizaine[$prefix_pair])[0].' '. $first;                                      
-                                // }
-                            }
-                    }else {
-                        $prefix .=$this->Pre[$this->number / 1000];
-                    }
-                    // echo $prefix;
-                    return ($prefix == 'un'?'':$prefix).' '.$this->millaine;
-                }else{
-
-                    //s'il y a centaine et dizaine
-                    $prefix =$this->Pre[$this->number / 1000];
-                    $prefix_dizaine='';
-                    $prefix_centaine='';
-
-                    //s'il n'y a pas de dizaine
-                    if($this->number % 100 == 0){    
-                        $prefix_centaine .= $this->Pre[($this->number % 1000) / 100];
-                    }else{
-
-                        //s'il y a dizaine
-                        if($this->Pre[($this->number % 1000)/100] !== 'zero'){
-                            $prefix_centaine .=$this->Pre[($this->number % 1000)/100];
-                        }else{
-
-                            $this->centaine = '';
-                        }
-                        
-                        //si le dizaine n'a pas de reste d'unité
-                        if((($this->number %1000) % 100)%10 == 0){
-                             $prefix_dizaine .= $this->dizaine[(($this->number %1000) % 100)];
-                        }else{
-
-                            //s'il ya une unité et que celle ci figure dans le tableau d'exception
-                            if(in_array((($this->number %1000) % 100), $this->exception)){
-                                $pair =$this->dizaine[($this->number%1000%100) - $this->number %1000 % 100 %10];
-                                $first = explode('-', $pair)[0];
-                                $end = $this->exceptionLettres[$this->number %1000 % 100 %10];
-                                $prefix_dizaine .= $first.' '.$end;
-                            }else{
-
-                                //s'il y a une unité et que celle ci  !dans le tableau d'exception et que ca figure dans le tableau predefini
-                                if(in_array($this->number % 1000% 100, $this->Pre)){
-                                    $prefix_dizaine .= $this->Pre[$this->number % 1000% 100];
-                                }else{
-
-                                    // !ca figure dans le tableau predefini
-                                if(($this->number%1000%100) - ($this->number %1000 % 100 %10)!== 0 ){
-                                   if(($this->number%1000%100) - ($this->number %1000 % 100 %10) > 19){
-                                    $pair =$this->dizaine[($this->number%1000%100) - ($this->number %1000 % 100 %10)];
-                                    $reste = $this->number %1000 % 100 %10;
-                                    $prefix_dizaine .= $pair.' et ' . $this->Pre[$reste];
-                                   }else{
-                                    $pair =$this->Pre[($this->number%1000%100) - ($this->number %1000 % 100 %10)];
-                                    $reste = $this->number %1000 % 100 %10;
-                                    $prefix_dizaine .= $pair.' et ' . $this->Pre[$reste];
-                                   }
-                                  
-                                }else{
-                                    $reste = $this->number %1000 % 100 %10;
-                                    $prefix_dizaine .=$this->Pre[$reste];
-
-                                }
-                                }
-                           
-                                
-                              
-                            }
-                        }
-                        return ($prefix == 'un'?'':$prefix).' '.$this->millaine. ' '.($prefix_centaine ==' un'?' ':$prefix_centaine).' ' .$this->centaine.' '.$prefix_dizaine;
-                    }
-
-
-                }
-
-           }
+            return $this->millieme();
     }
+}
 
 /**
  * function qui va gerer les nombres de zero à 99
@@ -269,7 +152,135 @@ class NumberInLetter {
 
     protected function millieme()
     {
+        
+            //s'il n'y a pas de centaine et dizaine
+            if($this->number % 1000 == 0){
+                $prefix = '';
+                if($this->number / 1000 >= 20 && $this->number / 1000 < 1000){      
+                        if($this->number / 1000 < 100){
+                             $pref = $this->number / 1000;
 
+                             if(!in_array($pref, $this->exception)){
+                                  $prefix_pair = ($this->number / 1000) - ($this->number / 1000 % 10);
+                                  $reste = $this->number / 1000 % 10;
+                                  $prefix .= $this->dizaine[$prefix_pair].' et '.$this->Pre[$reste];
+                             }else{
+                               $prefix_pair = ($this->number / 1000) - ($this->number / 1000 % 10);
+                                $first = $this->exceptionLettres[$this->number / 1000 % 10];
+                                $reste = $this->number / 1000 % 10;
+                                $prefix.=explode('-',$this->dizaine[$prefix_pair])[0].' '. $first;                                      
+                             }
+
+                        }elseif($this->number / 1000 >= 100 && $this->number / 1000 < 1000){
+                            $pref = $this->number / 1000;
+                            if($pref % 100 == 0){
+                                     $prefix .= ($this->Pre[$pref / 100]=='un'?' ':$this->Pre[$pref / 100]).' '.$this->centaine;                                               
+                            }else {
+                              if($pref % 100 % 10 ==0){
+                                $dizaine =$pref % 100;
+                                if($dizaine > 19){
+                                    $prefix .= ($this->Pre[$pref / 100]=='un'?' ':$this->Pre[$pref / 100]).' '.$this->centaine.' '.$this->dizaine[$pref % 100];                                               
+                                }else{
+                                    $prefix .= ($this->Pre[$pref / 100]=='un'?' ':$this->Pre[$pref / 100]).' '.$this->centaine.' '.$this->Pre[$pref % 100];                                               
+
+                                }
+
+                              }else{
+                                $pair = $pref % 100;
+                                
+                               if(@in_array($this->Pre[$pair], $this->Pre)){
+                                $prefix .= ($this->Pre[$pref / 100]=='un'?' ':$this->Pre[$pref / 100]).' '.$this->centaine.' '.$this->Pre[$pair]; 
+                               }else{
+                                    
+                                if(!in_array($pref % 100, $this->exception)){
+                                  $dizaine =$this->dizaine[($pref % 100) - ($pref % 100 % 10)];
+                                  $reste = $pref % 100 % 10;                    
+                                    $prefix .= ($this->Pre[$pref / 100]=='un'?' ':$this->Pre[$pref / 100]).' '.$this->centaine.' '.$dizaine.' et '.$this->Pre[$reste]; 
+                               }else{
+                                    $dizaine =$this->dizaine[($pref % 100) - ($pref % 100 % 10)];
+                                    $first = explode('-', $dizaine)[0];
+                                    $end  = $this->exceptionLettres[$pref % 100 % 10];
+                                    $prefix .= ($this->Pre[$pref / 100]=='un'?' ':$this->Pre[$pref / 100]).' '.$this->centaine.' '.$first.' et '.$end; 
+                                    
+                               }
+                              }
+                            }
+                            
+                        }
+                }else {
+                    $prefix .=$this->Pre[$this->number / 1000];
+                }
+                // echo $prefix;
+                return ($prefix == 'un'?'':$prefix).' '.$this->millaine;
+            }else{
+
+                //s'il y a centaine et dizaine
+                $prefix =$this->Pre[$this->number / 1000];
+                $prefix_dizaine='';
+                $prefix_centaine='';
+               
+                //s'il n'y a pas de dizaine
+                if($this->number % 100 == 0){    
+                    $prefix_centaine .= $this->Pre[($this->number % 1000) / 100];
+                }else{
+
+                    //s'il y a dizaine
+                    if($this->Pre[($this->number % 1000)/100] !== 'zero'){
+                        $prefix_centaine .=$this->Pre[($this->number % 1000)/100];
+                    }else{
+
+                        $this->centaine = '';
+                    }
+                    
+                    //si le dizaine n'a pas de reste d'unité
+                    if((($this->number %1000) % 100)%10 == 0){
+                         $prefix_dizaine .= $this->dizaine[(($this->number %1000) % 100)];
+                    }else{
+
+                        //s'il ya une unité et que celle ci figure dans le tableau d'exception
+                        if(in_array((($this->number %1000) % 100), $this->exception)){
+                            $pair =$this->dizaine[($this->number%1000%100) - $this->number %1000 % 100 %10];
+                            $first = explode('-', $pair)[0];
+                            $end = $this->exceptionLettres[$this->number %1000 % 100 %10];
+                            $prefix_dizaine .= $first.' '.$end;
+                        }else{
+
+                            //s'il y a une unité et que celle ci  !dans le tableau d'exception et que ca figure dans le tableau predefini
+                            if(in_array($this->number % 1000% 100, $this->Pre)){
+                                $prefix_dizaine .= $this->Pre[$this->number % 1000% 100];
+                            }else{
+
+                                // !ca figure dans le tableau predefini
+                            if(($this->number%1000%100) - ($this->number %1000 % 100 %10)!== 0 ){
+                               if(($this->number%1000%100) - ($this->number %1000 % 100 %10) > 19){
+                                $pair =$this->dizaine[($this->number%1000%100) - ($this->number %1000 % 100 %10)];
+                                $reste = $this->number %1000 % 100 %10;
+                                $prefix_dizaine .= $pair.' et ' . $this->Pre[$reste];
+                               }else{
+                                $pair =$this->Pre[($this->number%1000%100) - ($this->number %1000 % 100 %10)];
+                                $reste = $this->number %1000 % 100 %10;
+                                $prefix_dizaine .= $pair.' et ' . $this->Pre[$reste];
+                               }
+                              
+                            }else{
+                                $reste = $this->number %1000 % 100 %10;
+                                $prefix_dizaine .=$this->Pre[$reste];
+
+                            }
+                            }
+                       
+                            
+                          
+                        }
+                    }
+                    
+                    return ($prefix == 'un'?'':$prefix).' '.$this->millaine. ' '.($prefix_centaine ==' un'?' ':$prefix_centaine).' ' .$this->centaine.' '.$prefix_dizaine.$this->centaine().$this->dizaine();
+                }
+
+
+            }
+
+       }
     }
 }
         
