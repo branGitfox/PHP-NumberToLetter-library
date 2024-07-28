@@ -84,6 +84,7 @@ class NumberToLetter {
             }elseif($this->number >= 100 && $this->number < 1000){
                 return $this->centaine($this->number % 1000);              
            }elseif($this->number >= 1000 && $this->number < 1000000){
+                if($this->number < 2000)return $this->millaine.' '.$this->diz_aine($this->number % 1000);
             return $this->centaine($this->number / 1000).' '.$this->millaine.' '.$this->diz_aine($this->number % 1000);
             }elseif($this->number >= 1000000 && $this->number < 1000000000){
                 return $this->centaine($this->number / 1000000).' '.
@@ -141,7 +142,6 @@ class NumberToLetter {
 
     /**
      * Recupere l'unite du nombre passer en parametre
-     * @param number 
      * @return String
      */
 
@@ -151,7 +151,6 @@ class NumberToLetter {
 
     /**
      * function qui va gerer le nombre de 20 à 99
-     * @param number le nombre à decomposer
      * @return String
      */
     

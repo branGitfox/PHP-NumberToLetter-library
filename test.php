@@ -3,4 +3,4 @@
 require './NumberToLetter.php';
 
 
-echo NumberToLetter::makeTest(1, 100);   
+echo NumberToLetter::makeTest(1000, 3000);   
