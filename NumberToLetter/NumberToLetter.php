@@ -145,8 +145,9 @@ class NumberToLetter {
                 if($this->number < 2000)return $this->millaine. ($this->diz_aine($this->number % 1000 % 100)==' '?'':($this->separator==' and '?$this->separator:' ')).$this->centaine($this->number % 1000);
             return $this->centaine($this->number / 1000).' '.$this->millaine.($this->diz_aine($this->number % 1000 % 100)==' '?'':($this->separator==' and '?$this->separator:' ')).$this->centaine($this->number % 1000);
             }elseif($this->number >= 1000000 && $this->number < 1000000000){
+                 
                 return $this->centaine($this->number / 1000000).' '.
-                $this->million.' '.$this->centaine($this->number % 1000000 / 1000).($this->separator==' and '?$this->separator:'').$this->millaine.' '.$this->centaine($this->number % 1000000 %1000);  
+                $this->million.' '.$this->centaine($this->number % 1000000 / 1000).($this->centaine($this->number % 1000000 %1000)==''?'':($this->separator==' and '?$this->separator:'')).($this->centaine($this->number % 1000000 / 1000)==' '?$this->millaine:' ').' '.$this->centaine($this->number % 1000000 %1000);  
             }else{
                 return $this->centaine($this->number / 1000000000).' '.
                 $this->milliard.($this->separator==' and '?$this->separator:' ').$this->centaine($this->number % 1000000000 / 1000000).' '.$this->million.($this->separator==' and '?$this->separator:'').$this->centaine($this->number % 1000000000 % 1000000).' '.$this->millaine.' '.$this->centaine($this->number % 1000000000 % 1000000 % 1000);

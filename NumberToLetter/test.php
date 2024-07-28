@@ -3,4 +3,4 @@
 require './NumberToLetter.php';
 
 //use the static method
-NumberToLetter::makeTest(400, 2000, 'ENG');
+NumberToLetter::makeTest(0,10 , 'ENG');
