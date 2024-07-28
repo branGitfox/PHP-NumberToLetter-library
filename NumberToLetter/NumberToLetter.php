@@ -7,10 +7,11 @@
  * @return String
  */
 class NumberToLetter {
-        protected $Pre = [
-            0=>'zero',
-            1=>'un',
-            2=>'deux',
+   
+        protected $Pre= [
+            1 =>'un',
+            2 =>'deux',
+
             3=>'trois',
             4=>'quatre',
             5=>'cinq',
@@ -27,9 +28,9 @@ class NumberToLetter {
             16=>'seize',
             17=>'dix-sept',
             18=>'dix-huit',
-            19=>'dix-neuf',
+            19=>'dix-neuf'
+            
         ];
-
         protected $dizaine = [
             20=>'vingt', 
             30=>'trente',
@@ -40,6 +41,8 @@ class NumberToLetter {
               80=>'quatre-vingt',
               90=>'quatre vingt-dix',            
         ];
+
+        protected $separator=' et ';
 
         protected $exceptionLettres = [
             
@@ -62,9 +65,64 @@ class NumberToLetter {
 
   protected $number;
 
-    public function __construct(int $number)
+    public function __construct(int $number, string $lang = 'FR')
     {
         $this->number = $number;
+        
+        if($lang == 'ENG'){
+          
+            $this->Pre = [
+                0=>'zero',
+                1=>'one',
+                2=>'two',
+                3=>'three',
+                4=>'four',
+                5=>'five',
+                6=>'six',
+                7=>'seven',
+                8=>'eight',
+                9=>'nine',
+                10=>'ten',
+                11=>'eleven',
+                12=>'twelve',
+                13=>'thirteen',
+                14=>'fourteen',
+                15=>'fifteen',
+                16=>'sixteen',
+                17=>'seventeen',
+                18=>'eighteen',
+                19=>'nineteen',
+            ];
+            $this->centaine='hundred';
+            $this->millaine='thousand';
+            $this->milliard='billion';
+
+            $this->exceptionLettres = [
+            
+                1=>'eleven',
+                2=>'twelve',
+                3=>'thirteen',
+                4=>'fourteen',
+                5=>'fifteen',
+                6=>'sixteen',
+                7=>'seventeen',
+                8=>'eighteen',
+                9=>'nineteen',
+            ];
+
+            $this->dizaine= [
+                20=>'twenty', 
+                30=>'thirty',
+                 40=>'fourty', 
+                 50=>'fifty', 
+                 60=>'sixty',
+                  70=>'seventy', 
+                  80=>'eighty',
+                  90=>'ninety',            
+            ];
+
+            $this->separator=' and ';
+        }
     }
 
     /** 
@@ -84,14 +142,14 @@ class NumberToLetter {
             }elseif($this->number >= 100 && $this->number < 1000){
                 return $this->centaine($this->number % 1000);              
            }elseif($this->number >= 1000 && $this->number < 1000000){
-                if($this->number < 2000)return $this->millaine.' '.$this->diz_aine($this->number % 1000);
-            return $this->centaine($this->number / 1000).' '.$this->millaine.' '.$this->diz_aine($this->number % 1000);
+                if($this->number < 2000)return $this->millaine.($this->separator==' and '?$this->separator:' ').$this->centaine($this->number % 1000);
+            return $this->centaine($this->number / 1000).' '.$this->millaine.($this->separator==' and '?$this->separator:' ').$this->centaine($this->number % 1000);
             }elseif($this->number >= 1000000 && $this->number < 1000000000){
                 return $this->centaine($this->number / 1000000).' '.
-                $this->million.' '.$this->centaine($this->number % 1000000 / 1000).' '.$this->millaine.' '.$this->centaine($this->number % 1000000 %1000);  
+                $this->million.' '.$this->centaine($this->number % 1000000 / 1000).($this->separator==' and '?$this->separator:'').$this->millaine.' '.$this->centaine($this->number % 1000000 %1000);  
             }else{
                 return $this->centaine($this->number / 1000000000).' '.
-                $this->milliard.' '.$this->centaine($this->number % 1000000000 / 1000000).' '.$this->million.' '.$this->centaine($this->number % 1000000000 % 1000000).' '.$this->millaine;
+                $this->milliard.($this->separator==' and '?$this->separator:' ').$this->centaine($this->number % 1000000000 / 1000000).' '.$this->million.($this->separator==' and '?$this->separator:'').$this->centaine($this->number % 1000000000 % 1000000).' '.$this->millaine;
             }
 }
 
@@ -114,9 +172,9 @@ class NumberToLetter {
             @$idt = explode('-',$this->dizaine[$diz]);
             @$end = $idt[0];     
             $reste = $number % 10;
-             return $end.' et '. $this->exceptionLettres[$reste];
+             return $end.' '. $this->exceptionLettres[$reste];
            }
-           return $idt.' et '. $this->Pre[$reste];
+           return $idt. ' '. $this->Pre[$reste];
        }
     }
 
@@ -130,12 +188,12 @@ class NumberToLetter {
        if($number % 100 == 0){
             $prefix = $number / 100;
             if($prefix < 10){
-                return ($prefix < 2?'': $this->Pre[$prefix]).' '.$this->centaine;
+                return ($prefix < 2?' ': $this->Pre[$prefix]).' '.($prefix< 1 ?' ':$this->centaine.' '.($this->separator==' and '?$this->separator:' '));
             }
        }else{
-            $prefix = $number / 100;
+          $prefix = $number / 100;
             
-                return ($prefix < 2 ? '': $this->Pre[$prefix]).' '.($prefix< 1?'':$this->centaine).' '.$this->diz_aine($number % 100);
+                return ($prefix < 2 ? ' ': $this->Pre[$prefix]).' '.($prefix< 1 ?' ':$this->centaine.' '.($this->separator==' and '?$this->separator:' ')).' '.$this->diz_aine($number % 100);
             
        }
     }
@@ -157,21 +215,21 @@ class NumberToLetter {
      private function diz_aine(int $number){
         if(in_array($number, $this->exception)){
             $pair = $number - $number % 10;
-            $first = explode('-', $this->dizaine[$pair])[0];
+            $first = explode('-', @$this->dizaine[$pair])[0];
             $reste = $number %10;
-            return $first.' '.$this->exceptionLettres[$reste];
+            return $first.' '.@$this->exceptionLettres[$reste];
 
         }else{
             if($number < 20 ){
-                return ($this->Pre[$number] =='zero' ?'':$this->Pre[$number]);
+                return (@$this->Pre[$number] =='zero' ?' ': @$this->Pre[$number]);
             }else{
-                
+
                $pair = $number - $number % 10;
                 $reste = $number % 10;
                if($pair < 100){
-                   return $this->dizaine[$pair].($this->Pre[$reste] == 'zero'?'  ':' et ').($this->Pre[$reste] == 'zero'?'':$this->Pre[$reste]);
+                 return @$this->dizaine[$pair].' '.(@$this->Pre[$reste] == 'zero'?' ':@$this->Pre[$reste]);
                }else {
-                return ($this->Pre[$reste] == 'zero'?'  ':' et ').($this->Pre[$reste] == 'zero'?'':$this->Pre[$reste]); 
+                return (@$this->Pre[$reste] == 'zero'?' ':@$this->Pre[$reste]); 
                }
             }
         }

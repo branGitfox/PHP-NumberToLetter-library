@@ -9,25 +9,72 @@
 <body>
     <div class="container">
         <nav>
-            <div class="nav-logo">PHP-NTL</div>
+            <div class="nav-logo"><h2>PHP-NTL</h2></div>
             <div class="nav-link">
-                <button class="github-btn"></button>
-            </div>
+                <button class="github-btn">Github</button>
+        </div>
         </nav>
         <div class="introduction">
             <div class="title">
                 <h1>
-                    NumberToletter
+                    NumberToLetter
                 </h1>
             </div>
-            <p>NTL is an <i>Open Source PHP</i> librairies multilangage that allows PHP developpers to convert number to letter from <Strong>0</Strong> to <Strong>999,999,999 easyly.</Strong></p>
+            <p>NTL is an <i>Open Source </i>PHP librairy multilangage that allows PHP developpers to convert number to letter from <Strong>0</Strong> to <Strong>999,999,999 </Strong>easyly.</p>
+            <div class="actions">
+                <a href="#start">Get Started</a>
+                <a href="./NumberToLetter/NumberToLetter.php" download="NumberToLetter.php">Download</a>
+            </div>
         </div>
-        <div class="tutorial">
+        <div class="tutorial" id="start">
             <h2><Strong>#</Strong>How to use it?</h2>
+                <div class="steps">
+                    <ul>
+                        <li>Import the class <strong>NumberToLetter.php</strong> file to your index page</li>
+                        <li>create an <Strong>Instance</Strong> of <Strong>NumberToLetter</Strong> 
+                            <ul>
+                                <li><strong><i>First param</i></strong>: the number to convert</li>
+                                <li><strong><i>Second param</i></strong>: the langage 'ENG' for English and  none or 'FR' for French.The default langage is French.</li>
+                            </ul>
+                        </li>             
+                        <li>Use the method <Strong>numberToLetter</Strong></li>
+                    </ul>
+                </div>
+            <div class="code">
+                <a href="./assets/img/code-1.jpg"><img src="./assets/img/code-1.jpg" alt=""></a>
+                
+            </div>
+            <h3><strong>#</strong>Make many test</Strong></h3>
+                <li  type="dot">You can an also make many test using the <Strong>static::</Strong> method <Strong>NumberToLetter::makeTest($from, $to)</Strong></li>
+                <ul class="ul-test">
+                    <li><strong><i>@param from:</i></strong> starting test</li>
+                    <li><strong>@param to:</strong> ending test</li>
+                </ul>
+            <div class="code-2">
+                <a href="./assets/img/code-1.jpg"> <img src="./assets/img/code-1.jpg" alt=""></a>
+               
+            </div>
+            <div class="Developper">
+                <h3><strong>#</strong>Author</h3>
+                <p>My name is Ravomanana Brandon Fidelin, third year CS student also full stack developer. You can watch my <a href="">github profil</a> for more feature.</p>
+            </div>
+          
         </div>
+
+        
+          <footer>
+                copyright <a class="date"></a> <a href="https://github.com/branGitFox" class="author">BranGitFox</a>
+            </footer>
     </div>
     <script>
+        const github = document.querySelector('.github-btn')
+        github.addEventListener('click', () => {
+            location.href='https://www.github.com/branGitFox/PHP-NumberToLetter-librairie'
+        })
 
+        const date = new Date()
+       
+        document.querySelector('.date').innerText =  date.getFullYear()
     </script>
 </body>
 </html>

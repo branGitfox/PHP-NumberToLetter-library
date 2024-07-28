@@ -1,6 +1,9 @@
 <?php 
-
+//import the class from 'NumberToletter/NumberToletter.php'
 require './NumberToLetter.php';
 
+//Instance of NumberToLetter
+$ntl = new NumberToLetter(500033, 'ENG');
 
-echo NumberToLetter::makeTest(1000, 3000);   
+//use the method numberToLetter
+echo $ntl->numberToLetter();
