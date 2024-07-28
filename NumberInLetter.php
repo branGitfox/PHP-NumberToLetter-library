@@ -86,7 +86,8 @@ class NumberInLetter {
            }elseif($this->number >= 1000 && $this->number < 1000000){
             return $this->centaine($this->number / 1000).' '.$this->millaine;
             }elseif($this->number >= 1000000 && $this->number < 1000000000){
-                return $this->centaine($this->number / 1000000).' '.$this->million;
+                return $this->centaine($this->number / 1000000).' '.
+                $this->million.' '.$this->centaine($this->number % 1000000 / 1000).' '.$this->millaine.' '.$this->centaine($this->number % 1000000 %1000);  
             }
 }
 
