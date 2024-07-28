@@ -6,7 +6,7 @@
  * @var number input 
  * @return String
  */
-class NumberInLetter {
+class NumberToLetter {
         protected $Pre = [
             0=>'zero',
             1=>'un',
@@ -84,10 +84,13 @@ class NumberInLetter {
             }elseif($this->number >= 100 && $this->number < 1000){
                 return $this->centaine($this->number % 1000);              
            }elseif($this->number >= 1000 && $this->number < 1000000){
-            return $this->centaine($this->number / 1000).' '.$this->millaine;
+            return $this->centaine($this->number / 1000).' '.$this->millaine.' '.$this->diz_aine($this->number % 1000);
             }elseif($this->number >= 1000000 && $this->number < 1000000000){
                 return $this->centaine($this->number / 1000000).' '.
                 $this->million.' '.$this->centaine($this->number % 1000000 / 1000).' '.$this->millaine.' '.$this->centaine($this->number % 1000000 %1000);  
+            }else{
+                return $this->centaine($this->number / 1000000000).' '.
+                $this->milliard.' '.$this->centaine($this->number % 1000000000 / 1000000).' '.$this->million.' '.$this->centaine($this->number % 1000000000 % 1000000).' '.$this->millaine;
             }
 }
 
@@ -117,11 +120,11 @@ class NumberInLetter {
     }
 
     /**
- * function qui va gerer les nombres de cent à 999
- * @param void 
+ * function qui va gerer les nombres de 100 à 999
+ * @param number 
  * @return String
  */
-    protected function centaine($number)
+    protected function centaine(int $number)
     {
        if($number % 100 == 0){
             $prefix = $number / 100;
@@ -131,27 +134,28 @@ class NumberInLetter {
        }else{
             $prefix = $number / 100;
             
-                return ($prefix < 2?'': $this->Pre[$prefix]).' '.($prefix< 1?'':$this->centaine).' '.$this->diz_aine($number % 100);
+                return ($prefix < 2 ? '': $this->Pre[$prefix]).' '.($prefix< 1?'':$this->centaine).' '.$this->diz_aine($number % 100);
             
        }
     }
 
     /**
      * Recupere l'unite du nombre passer en parametre
-     * @param void
+     * @param number 
      * @return String
      */
 
-    private function unite($number){
+    private function unite(int $number){
         return @$this->Pre[$number];
     }
 
     /**
-     * @param void
+     * function qui va gerer le nombre de 20 à 99
+     * @param number le nombre à decomposer
      * @return String
      */
     
-     private function diz_aine($number){
+     private function diz_aine(int $number){
         if(in_array($number, $this->exception)){
             $pair = $number - $number % 10;
             $first = explode('-', $this->dizaine[$pair])[0];
@@ -159,8 +163,8 @@ class NumberInLetter {
             return $first.' '.$this->exceptionLettres[$reste];
 
         }else{
-            if($number < 20){
-                return $this->Pre[$number];
+            if($number < 20 ){
+                return ($this->Pre[$number] =='zero' ?'':$this->Pre[$number]);
             }else{
                 
                $pair = $number - $number % 10;
@@ -168,9 +172,29 @@ class NumberInLetter {
                if($pair < 100){
                    return $this->dizaine[$pair].($this->Pre[$reste] == 'zero'?'  ':' et ').($this->Pre[$reste] == 'zero'?'':$this->Pre[$reste]);
                }else {
-                return ($this->Pre[$reste] == 'zero'?'  ':' et ').($this->Pre[$reste] == 'zero'?'':$this->Pre[$reste]);
+                return ($this->Pre[$reste] == 'zero'?'  ':' et ').($this->Pre[$reste] == 'zero'?'':$this->Pre[$reste]); 
                }
             }
+        }
+    }
+
+    /**
+     * @param from  le debut du test
+     * @param to  la fin du test
+     * @return String
+     */
+
+    public static  function makeTest(int $from, int $to){
+        try{
+            while($from <= $to){
+              $n = new NumberToLetter($from);
+                echo $n->numberToLetter().'<br>';
+               
+              $from++;
+            }
+            
+        }catch(Exception $e){
+            echo 'Erreur:'. $e->getMessage();
         }
     }
 }

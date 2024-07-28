@@ -1,6 +1,6 @@
 <?php 
 
-require './NumberInLetter.php';
+require './NumberToLetter.php';
 
-$number = new NumberInLetter(990501510);
-echo $number->numberToLetter();
+
+echo NumberToLetter::makeTest(1, 100);   
