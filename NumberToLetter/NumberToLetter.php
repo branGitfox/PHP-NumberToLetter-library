@@ -7,7 +7,7 @@
  * @return String
  */
 class NumberToLetter {
-   
+    protected $join = false;
         protected $Pre= [
             1 =>'un',
             2 =>'deux',
@@ -142,14 +142,14 @@ class NumberToLetter {
             }elseif($this->number >= 100 && $this->number < 1000){
                 return $this->centaine($this->number % 1000);              
            }elseif($this->number >= 1000 && $this->number < 1000000){
-                if($this->number < 2000)return $this->millaine.($this->separator==' and '?$this->separator:' ').$this->centaine($this->number % 1000);
-            return $this->centaine($this->number / 1000).' '.$this->millaine.($this->separator==' and '?$this->separator:' ').$this->centaine($this->number % 1000);
+                if($this->number < 2000)return $this->millaine. ($this->diz_aine($this->number % 1000 % 100)==' '?'':($this->separator==' and '?$this->separator:' ')).$this->centaine($this->number % 1000);
+            return $this->centaine($this->number / 1000).' '.$this->millaine.($this->diz_aine($this->number % 1000 % 100)==' '?'':($this->separator==' and '?$this->separator:' ')).$this->centaine($this->number % 1000);
             }elseif($this->number >= 1000000 && $this->number < 1000000000){
                 return $this->centaine($this->number / 1000000).' '.
                 $this->million.' '.$this->centaine($this->number % 1000000 / 1000).($this->separator==' and '?$this->separator:'').$this->millaine.' '.$this->centaine($this->number % 1000000 %1000);  
             }else{
                 return $this->centaine($this->number / 1000000000).' '.
-                $this->milliard.($this->separator==' and '?$this->separator:' ').$this->centaine($this->number % 1000000000 / 1000000).' '.$this->million.($this->separator==' and '?$this->separator:'').$this->centaine($this->number % 1000000000 % 1000000).' '.$this->millaine;
+                $this->milliard.($this->separator==' and '?$this->separator:' ').$this->centaine($this->number % 1000000000 / 1000000).' '.$this->million.($this->separator==' and '?$this->separator:'').$this->centaine($this->number % 1000000000 % 1000000).' '.$this->millaine.' '.$this->centaine($this->number % 1000000000 % 1000000 % 1000);
             }
 }
 
@@ -188,12 +188,13 @@ class NumberToLetter {
        if($number % 100 == 0){
             $prefix = $number / 100;
             if($prefix < 10){
-                return ($prefix < 2?' ': $this->Pre[$prefix]).' '.($prefix< 1 ?' ':$this->centaine.' '.($this->separator==' and '?$this->separator:' '));
+                return ($prefix < 2?' ': $this->Pre[$prefix]).' '.($prefix< 1 ?' ':$this->centaine.' ');
             }
        }else{
           $prefix = $number / 100;
-            
-                return ($prefix < 2 ? ' ': $this->Pre[$prefix]).' '.($prefix< 1 ?' ':$this->centaine.' '.($this->separator==' and '?$this->separator:' ')).' '.$this->diz_aine($number % 100);
+          
+                $this->join= true;
+                return ($prefix < 2 ? ' ': @$this->Pre[$prefix]).' '.($prefix< 1 ?' ':$this->centaine.' '.($this->diz_aine($number % 100)==' '?' ':($this->separator==' and '?$this->separator:' '))).' '.$this->diz_aine($number % 100);
             
        }
     }
@@ -241,10 +242,10 @@ class NumberToLetter {
      * @return String
      */
 
-    public static  function makeTest(int $from, int $to){
+    public static  function makeTest(int $from, int $to,string $lang){
         try{
             while($from <= $to){
-              $n = new NumberToLetter($from);
+              $n = new NumberToLetter($from, $lang);
                 echo $n->numberToLetter().'<br>';
                
               $from++;
