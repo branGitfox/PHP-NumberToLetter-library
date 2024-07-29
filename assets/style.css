@@ -19,9 +19,9 @@
 
 nav{
     width: 100%;
-    height: 7vh;
+    height: 10vh;
     position: sticky;
-    top: 10px;
+    top: 0;
     background-color: whitesmoke;
     color: purple;
     display: flex;
@@ -37,7 +37,14 @@ button{
     background-color: purple;
     color: white;
     font-weight: 400;
-    border: none;
+        z-index: 10000000000; 
+   border: none;
+
+}
+
+button:hover{
+    cursor: pointer;
+    
 }
 
 .introduction, .tutorial, .steps{
