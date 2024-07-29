@@ -1,7 +1,8 @@
 <?php 
 
 /**
- * Cette classe permet de convertir un nombre en lettre (Francais pour le moment)
+ * Cette classe permet de convertir un nombre en lettre (Francais et Anglais
+ )
  * @author BranGitFox 
  * @var number input 
  * @return String
