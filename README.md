@@ -1,5 +1,5 @@
-#NumberToLetter
-A PHP library that allows PHP developer to conevert a Number from 0 to 999,999,999,999 to a letter String.
+# NumberToLetter
+A PHP library that allows PHP developer to conevert a ### `Number` from 0 to 999,999,999,999 to a ### `letter String`.
 
-##Some Code Algorithms
+## Some Code Algorithms
 <img src="./assets/">
