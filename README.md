@@ -14,6 +14,10 @@ A PHP library that allows PHP developer to conevert a  `Number` from 0 to 999,99
 <img src="./assets/img/IMG_2473.jpeg">
 <img src="./assets/img/IMG_2474.png">
 
+# Choose Langage 
+### `FR` for `French`
+### `ENG` for ˋEnglish`
+
 # Make many `Test`
 <img src="./assets/img/IMG_2471.png">
 
