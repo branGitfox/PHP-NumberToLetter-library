@@ -3,68 +3,71 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./assets/style.css">
+    <!-- <link rel="stylesheet" href="./assets/style.css"> -->
+    <script src="https://cdn.tailwindcss.com"></script>
     <title>NumberToLetter</title>
 </head>
 <body>
-    <div class="container">
-        <nav>
-            <div class="nav-logo"><h2>PHP-NTL</h2></div>
+    <div class="w-5/6 mx-auto  bg-white">
+
+
+        <nav class=" p-4 bg-blue-600 flex justify-between items-center">
+            <div class="nav-logo"><h2 class="font-medium text-purple-200">PHP-NTL</h2></div>
             <div class="nav-link">
-                <button class="github-btn">Github</button>
+                <a href="https://www.github.com/BranGitfox" class="border p-3 border-gray-400 border-solid font-base text-white">Github</a>
         </div>
         </nav>
-        <div class="introduction">
+        <div class="p-3">
             <div class="title">
-                <h1>
+                <h1 class="text-blue-700 font-bold text-3xl mt-5">
                     NumberToLetter
                 </h1>
             </div>
-            <p>NTL is an <i>Open Source </i>PHP librairy multilangage that allows PHP developers to convert number to letter from <Strong>0</Strong> to <Strong>999,999,999,999 </Strong>easyly.</p>
-            <div class="actions">
-                <a href="#start">Get Started</a>
-                <a href="./NumberToLetter/NumberToLetter.php" download="NumberToLetter.php">Download</a>
+            <p class="text-base ">NTL is an <i class="font-bold text-gray-700">Open Source </i>PHP librairy multilangage that allows PHP developers to convert number to letter from <Strong class="text-violet-700">0</Strong> to <Strong class="text-violet-700">999,999,999,999 </Strong>easyly.</p>
+            <div class="p-3 mt-3">
+                <a href="#start" class="bg-green-400 p-3 mx-3 rounded text-white">Get Started</a>
+                <a href="./NumberToLetter/NumberToLetter.php" class="bg-blue-400 p-3 mx-3 rounded text-white" download="NumberToLetter.php">Download</a>
             </div>
         </div>
-        <div class="tutorial" id="start">
-            <h2><Strong>#</Strong>How to use it?</h2>
-                <div class="steps">
+        <div class=" p-3" id="start">
+            <h2 class="text-3xl text-gray-800"><Strong class="text-purple-600">#</Strong>How to use it?</h2>
+                <div class=" p-3 font-base">
                     <ul>
-                        <li>Import the class <strong>NumberToLetter.php</strong> file to your index page</li>
-                        <li>create an <Strong>Instance</Strong> of <Strong>NumberToLetter</Strong> 
+                        <li>Import the class <strong class="text-gray-700 underline decoration-blue-400 decoration-dashed">NumberToLetter.php</strong> file to your index page</li>
+                        <li>create an <Strong class="text-gray-700 underline decoration-blue-400 decoration-dashed">Instance</Strong> of <Strong class="text-gray-700 underline decoration-blue-400 decoration-dashed">NumberToLetter</Strong> 
                             <ul>
-                                <li><strong><i>First param</i></strong>: the number to convert</li>
-                                <li><strong><i>Second param</i></strong>: the langage 'ENG' for English and  none or 'FR' for French.The default langage is French.</li>
+                                <li><strong class="text-violet-700"><i>First param</i></strong>: the number to convert</li>
+                                <li><strong class="text-violet-700"><i>Second param</i></strong>: the langage <span class="text-blue-900 font-bold">ENG</span>  for English and  none or <span class="text-blue-900 font-bold">FR</span>  for French.The default langage is French.</li>
                             </ul>
                         </li>             
-                        <li>Use the method <Strong>numberToLetter</Strong></li>
+                        <li>Use the method <Strong class="text-gray-700 underline decoration-blue-400 decoration-dashed">numberToLetter</Strong></li>
                     </ul>
                 </div>
             <div class="code">
                 <a href="./assets/img/code-1.PNG"><img src="./assets/img/code-1.PNG" alt=""></a>
                 
             </div>
-            <h3><strong>#</strong>Make many test</Strong></h3>
-                <li  type="dot">You can an also make many test using the <Strong>static::</Strong> method <Strong>NumberToLetter::makeTest($from, $to, $lang)</Strong></li>
-                <ul class="ul-test">
-                    <li><strong><i>@param from:</i></strong> starting test</li>
-                    <li><strong>@param to:</strong> ending test</li>
-                    <li><strong>@param lang:</strong> langage</li>
+            <h3 class=" mt-3 text-3xl text-gray-800"><strong class="text-purple-600">#</strong>Make many test</Strong></h3>
+                <li  type="dot">You can an also make many test using the <Strong class="text-gray-700 underline decoration-blue-400 decoration-dashed">static::</Strong> method <Strong class="text-gray-700 underline decoration-blue-400 decoration-dashed">NumberToLetter::makeTest($from, $to, $lang)</Strong></li>
+                <ul class="ul-test mb-4">
+                    <li><strong class="text-violet-600"><i>@param from:</i></strong> starting test</li>
+                    <li><strong class="text-violet-600">@param to:</strong> ending test</li>
+                    <li><strong class="text-violet-600">@param lang:</strong> langage</li>
                 </ul>
             <div class="code-2">
                 <a href="./assets/img/code-2.PNG"> <img src="./assets/img/code-2.PNG" alt=""></a>
                
             </div>
             <div class="Developper">
-                <h3><strong>#</strong>Author</h3>
-                <p>My name is Ravomanana Brandon Fidelin,I'm 20 and third year CS student also full stack developer. You can watch my <a href="">github profil</a> for more feature.</p>
+                <h3 class=" mt-3 text-3xl text-gray-800"><strong class="text-violet-600">#</strong>Author</h3>
+                <p>My name is Ravomanana Brandon Fidelin,I'm 20 and third year CS student also full stack developer. You can watch my <a href="https://www.github.com/BranGitfox" class="font-bold underline decoration-blue-400 text-blue-900">github profil</a> for more feature.</p>
             </div>
           
         </div>
 
         
-          <footer>
-                copyright <a class="date"></a> <a href="https://github.com/branGitFox" class="author">BranGitFox</a>
+          <footer class="text-center font-bold text-gray-700">
+                copyright <a class="date"></a> <a class="text-blue-900" href="https://github.com/branGitFox" class="author">BranGitFox</a>
             </footer>
     </div>
     <script>
