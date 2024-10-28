@@ -1,5 +1,6 @@
 # NumberToLetter
-A PHP library that allows PHP developer to conevert a  `Number` from 0 to 999,999,999,999 to a  `letter String`.
+A PHP library that allows PHP developer to convert a  `Number` from 0 to 999,999,999,999 to a  `letter String`.
+you can get the documentation [here]()
 ## View
 <img src="./assets/img/PHP-NTL.jpg">
 
