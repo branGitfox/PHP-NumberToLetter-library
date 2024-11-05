@@ -5,8 +5,8 @@ you can get the documentation [here](https://php-number-to-letter-library.vercel
 <img src="./assets/img/NTLp.png">
 # Example Output
 
- 1= ˋOneˋ
- 2=  ˋTwoˋ
+ 1= `One`
+ 2=  `Two`
 
 
 
