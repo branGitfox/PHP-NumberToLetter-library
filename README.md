@@ -1,8 +1,9 @@
 # NumberToLetter
-A PHP library that allows PHP developer to convert a  `Number` from 0 to 999,999,999,999 to a  `letter String`.
-you can get the documentation [here](https://php-number-to-letter-library.vercel.app/)
+PHP-NTL is a powerful PHP library that converts numbers into their word representation. Supporting numbers from `0` to `999,999,999,999`, with built-in support for both `French` and `English` languages.
 ## Website
+
 <img src="./assets/img/new-doc.png">
+
 
 
 
