@@ -96,7 +96,7 @@
   <body class="bg-gray-50 dark:bg-gray-900 transition-colors duration-200">
     <!-- Sidebar Navigation -->
     <aside
-      class="fixed top-0 left-0 h-screen w-64 border-r border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 p-4 hidden lg:block"
+      class="fixed z-10 top-0 left-0 h-screen w-64 border-r border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 p-4 hidden lg:block"
     >
       <div class="flex items-center space-x-3 mb-8">
         <h1 class="text-xl font-bold text-primary-light dark:text-primary-dark">
@@ -567,7 +567,12 @@ NumberToLetter::makeTest(0, 10, 'FR');</code>
       // Mobile menu
       const mobileMenuBtn = document.getElementById("mobileMenuBtn");
       // Add mobile menu functionality here
+  const sidebar = document.querySelector("aside");
 
+  mobileMenuBtn.addEventListener("click", () => {
+    // toggle class to show/hide sidebar on mobile
+    sidebar.classList.toggle("hidden");
+  });
       // Set copyright year
       document.getElementById("year").textContent = new Date().getFullYear();
 
